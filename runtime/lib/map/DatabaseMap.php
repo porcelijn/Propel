@@ -173,11 +173,11 @@ class DatabaseMap
   {
     if (array_key_exists($phpName, $this->tablesByPhpName)) {
       return $this->tablesByPhpName[$phpName];
-    } elseif (class_exists($tmClass = $phpName . 'TableMap')) {
+    } elseif (class_exists($tmClass = substr_replace($phpName, '\\map\\', strrpos($phpName, '\\'), 1) . 'TableMap')) {
       $this->addTableFromMapClass($tmClass);
 
       return $this->tablesByPhpName[$phpName];
-    } elseif (class_exists($tmClass = substr_replace($phpName, '\\map\\', strrpos($phpName, '\\'), 1) . 'TableMap')) {
+    } elseif (class_exists($tmClass = $phpName . 'TableMap')) {
       $this->addTableFromMapClass($tmClass);
 
       return $this->tablesByPhpName[$phpName];
